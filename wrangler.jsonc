@@ -1,0 +1,25 @@
+// Cloudflare Workers configuration for the Biira Bank public site.
+//
+// The site is plain static HTML served as Worker static assets. There is no
+// build step and no server-side code yet: `npx wrangler deploy` uploads the
+// contents of ./public to Cloudflare's edge.
+//
+// Static assets rather than Pages, deliberately: Cloudflare recommends this
+// path for new projects, and it leaves room for server-side code later (the
+// Okta sign-in hand-off, and the AI support assistant capstone) without a
+// migration.
+{
+  "name": "biirabank",
+  "compatibility_date": "2026-09-01",
+
+  "assets": {
+    // Everything in here is public. Keep secrets and config out of it.
+    "directory": "./public"
+  },
+
+  // Request logs in the Cloudflare dashboard. Useful once the WAF is on,
+  // for correlating what the edge blocked with what reached the site.
+  "observability": {
+    "enabled": true
+  }
+}
